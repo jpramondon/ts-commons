@@ -1,8 +1,7 @@
-import { Env } from "./Environment";
-import { IAppenderConfiguration, Logger, Layout, BaseLayout, LogEvent } from "@tsed/logger";
+import { BaseLayout, IAppenderConfiguration, Layout, LogEvent, Logger } from "@tsed/logger";
 import { JobProfileData } from "../models/JobProfileData";
-import { KafkaProfileData } from "../models/KafkaProfileData";
 import { RequestProfileData } from "../models/RequestProfileData";
+import { Env } from "./Environment";
 
 export namespace Loggers {
 
@@ -97,12 +96,6 @@ export namespace Loggers {
                     component: loggingEvent.categoryName,
                     level: loggingEvent.level.toString(),
                     jobProfileData: data.toJson()
-                };
-            } else if (data instanceof KafkaProfileData) {
-                log = {
-                    component: loggingEvent.categoryName,
-                    level: loggingEvent.level.toString(),
-                    kafkaProfileData: data.toJson()
                 };
             }
             return JSON.stringify(log) + (this.config["separator"] || "");
